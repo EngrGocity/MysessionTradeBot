@@ -1,0 +1,63 @@
+# Exness MT5 Trading Bot Configuration
+broker:
+  name: "Exness Demo"
+  server: "Exness-Demo"  # Change to "Exness-Live" for live trading
+  login: 0  # Replace with your account number
+  password: ""  # Replace with your password
+  timeout: 60000
+  enable_real_trading: false  # Set to true for live trading
+
+sessions:
+  - session_type: "asian"
+    start_time: "00:00"
+    end_time: "08:00"
+    timezone: "UTC"
+    enabled: true
+  - session_type: "london"
+    start_time: "08:00"
+    end_time: "16:00"
+    timezone: "UTC"
+    enabled: true
+  - session_type: "new_york"
+    start_time: "13:00"
+    end_time: "21:00"
+    timezone: "UTC"
+    enabled: true
+
+risk:
+  max_position_size: 0.02      # 2% of account per position
+  max_daily_loss: 0.05         # 5% daily loss limit
+  max_open_positions: 5        # Maximum concurrent positions
+  stop_loss_pips: 50.0         # Default stop loss
+  take_profit_pips: 100.0      # Default take profit
+  trailing_stop: true          # Enable trailing stop
+  trailing_stop_pips: 20.0     # Trailing stop distance
+
+strategies:
+  - name: "session_breakout"
+    enabled: true
+    symbols: ["EURUSD", "GBPUSD", "USDJPY", "AUDUSD"]
+    timeframe: "H1"
+    parameters:
+      breakout_period: 20
+      breakout_multiplier: 1.5
+      atr_period: 14
+      min_volume: 0.01
+      max_volume: 1.0
+  
+  - name: "ml_strategy"
+    enabled: false  # Enable when ready
+    symbols: ["EURUSD", "GBPUSD"]
+    timeframe: "H1"
+    parameters:
+      lookback_period: 20
+      prediction_threshold: 0.6
+      retrain_interval: 100
+
+symbols: ["EURUSD", "GBPUSD", "USDJPY", "AUDUSD", "NZDUSD", "USDCAD"]
+
+data_path: "data"
+logs_path: "logs"
+enable_dashboard: true
+dashboard_port: 8050
+enable_notifications: false 
